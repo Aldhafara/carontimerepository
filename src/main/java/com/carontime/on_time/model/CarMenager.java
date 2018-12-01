@@ -1,4 +1,5 @@
 package com.carontime.on_time.model;
 
-public class Car {
+public class CarMenager {
+
 }
