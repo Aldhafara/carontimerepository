@@ -20,17 +20,17 @@ public class CarOnTimeControler {
 
     @GetMapping("/user")
     public String user() {
-        return "userdata";
+        return "user/userdata";
     }
 
     @GetMapping("/admin")
     public String admin() {
-        return "admindata";
+        return "admin/admindata";
     }
 
     @GetMapping("/user/map")
     public String map() {
-        return "mapapi";
+        return "mapapi/mapapi";
     }
 
 
