@@ -9,12 +9,14 @@ import java.util.List;
 @Component
 public class DefaultCarManagerImp implements CarManager {
     private List<Car> listOfCars = new ArrayList<>();
-    
+
     @Override
     public void addCar(Car car) {
 
     }
 
+    public void asd() {}
+    
     @Override
     public boolean removeCar(Car car) {
         return false;
