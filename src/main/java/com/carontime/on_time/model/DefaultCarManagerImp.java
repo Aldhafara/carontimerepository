@@ -11,7 +11,7 @@ public class DefaultCarManagerImp implements CarManager {
     private List<Car> listOfCars = new ArrayList<>();
 
     @Override
-    public void addCar(Car car) {
+    public int addCar(Car car) {
 
     }
 

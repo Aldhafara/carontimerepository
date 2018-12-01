@@ -7,6 +7,15 @@ public class Car {
     private CarStatus status=CarStatus.UNUSED;
     private Point2D.Double localization;
 
+    public Car() {
+    }
+
+    public Car(int id, CarStatus status, Point2D.Double localization) {
+        this.id = id;
+        this.status = status;
+        this.localization = localization;
+    }
+
     public int getId() {
         return id;
     }
