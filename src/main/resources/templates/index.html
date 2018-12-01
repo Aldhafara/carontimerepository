@@ -1,11 +1,22 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="en"
-      >
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout"
+      lang="en">
 <head>
     <meta charset="UTF-8">
     <title>index</title>
 </head>
 <body>
+<section layout:fragment="content">
+    <div th:align="center">
+        <input type="submit" action="/adminData" method="post" value="ADMIN"/>
+    </div>
+    <div th:align="center">
+        <input type="submit" action="/userData" method="post" value="USER"/>
+    </div>
+
+</section>
 
 </body>
 </html>
