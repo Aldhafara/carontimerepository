@@ -3,8 +3,13 @@ package com.carontime.on_time.model.car;
 import java.awt.geom.Point2D;
 
 public class Car {
+    private int id;
     private CarStatus status=CarStatus.UNUSED;
     private Point2D.Double localization;
+
+    public int getId() {
+        return id;
+    }
 
     public CarStatus getStatus() {
         return status;
