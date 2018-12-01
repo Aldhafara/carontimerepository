@@ -1,7 +1,6 @@
 package com.carontime.on_time.model.carmanager;
 
 import com.carontime.on_time.model.car.Car;
-import com.carontime.on_time.model.carmanager.CarManager;
 import com.google.common.base.Preconditions;
 import org.springframework.stereotype.Component;
 
@@ -33,4 +32,10 @@ public class DefaultCarManagerImp implements CarManager {
         Preconditions.checkArgument(id >= 0 && id < listOfCars.size(), "Id wyszukiwanego pojazdu przekracza zakres listy");
         return listOfCars.get(id);
     }
+
+    @Override
+    public boolean isOnList(Car car) {
+        return listOfCars.contains(car);
+    }
+
 }

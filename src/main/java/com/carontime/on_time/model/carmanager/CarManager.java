@@ -24,4 +24,11 @@ public interface CarManager {
     *   - IllegalArgumentException jeśli przekazane w parametrze 'id' wykracza poza zakres listy
     * */
     Car getCar(int id);
+
+    /*
+    * Return:
+    *   - true jeśli obiekt znajduje się na liście
+    *   - false jeśli obiekt nie znajduej się na liście
+    * */
+    boolean isOnList(Car car);
 }
