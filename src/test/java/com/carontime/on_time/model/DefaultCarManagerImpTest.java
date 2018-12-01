@@ -23,11 +23,7 @@ public class DefaultCarManagerImpTest {
 
     @Test
     public void shouldReturnNewCar() {
-        //given
-        DefaultCarManagerImp carManager = Mockito.mock(DefaultCarManagerImp.class);
-        when(carManager.addCar(new Car())).thenReturn(
 
-        )
     }
 
     @Test
