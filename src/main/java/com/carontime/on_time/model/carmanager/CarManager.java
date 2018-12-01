@@ -6,7 +6,7 @@ public interface CarManager {
     /*
     * Return:
     *   - Id pojazdu na liście
-    *   - -1 w przypadku jeśli pojazd już istnieje na liście
+    *   - W przypadku jeśli pojazd już jest na liście, zwraca jego ID na niej
     *   - NullPointerException jeżeli paramter car jest nullem
     * */
     int addCar(Car car);

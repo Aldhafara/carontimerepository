@@ -18,7 +18,7 @@ public class DefaultCarManagerImp implements CarManager {
             listOfCars.add(car);
             return listOfCars.size() - 1;
         }
-        return -1;
+        return listOfCars.indexOf(car);
     }
     
     @Override
