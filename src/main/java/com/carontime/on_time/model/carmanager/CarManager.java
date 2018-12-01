@@ -1,34 +1,7 @@
 package com.carontime.on_time.model.carmanager;
 
 import com.carontime.on_time.model.car.Car;
+import org.springframework.data.repository.CrudRepository;
 
-public interface CarManager {
-    /*
-    * Return:
-    *   - Id pojazdu na liście
-    *   - W przypadku jeśli pojazd już jest na liście, zwraca jego ID na niej
-    *   - NullPointerException jeżeli paramter car jest nullem
-    * */
-    int addCar(Car car);
-
-    /*
-    * Return:
-    *   - true jeśli obiekt został usunięty z listy
-    *   - false jeśli obiekt nie został usunięty z listy (paramter car jest null lub nie ma go na liście)
-    * */
-    boolean removeCar(Car car);
-
-    /*
-    * Return:
-    *   - obiekt 'Car' jeśli na liście znajduje się to id
-    *   - IllegalArgumentException jeśli przekazane w parametrze 'id' wykracza poza zakres listy
-    * */
-    Car getCar(int id);
-
-    /*
-    * Return:
-    *   - true jeśli obiekt znajduje się na liście
-    *   - false jeśli obiekt nie znajduej się na liście
-    * */
-    boolean isOnList(Car car);
+public interface CarManager extends CrudRepository<Car, Integer> {
 }
