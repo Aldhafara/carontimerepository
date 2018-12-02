@@ -2,6 +2,9 @@ package com.carontime.on_time.controler;
 
 import com.carontime.on_time.model.car.Car;
 import com.carontime.on_time.model.car.CarForm;
+import com.carontime.on_time.model.user.User;
+import com.carontime.on_time.model.user.UserForm;
+import com.carontime.on_time.service.UserService;
 import com.carontime.on_time.service.carservice.CarService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -19,6 +22,9 @@ public class CarOnTimeControler {
 
     @Autowired
     CarService carService;
+
+    @Autowired
+    UserService userService;
 
     @GetMapping("/")
     public String start() {
@@ -56,6 +62,20 @@ public class CarOnTimeControler {
 
     @GetMapping("/user/edit")
     public String edit() { return "user/edit"; }
+
+    @PostMapping("/user/edit")
+    public String editUser(@ModelAttribute UserForm userForm, Model model) {
+        User user = new User(userForm.getName(), userForm.getLastname(), userForm.getCity(), userForm.getCarLicenceId(), userForm.getEmailAdress(), userForm.getPhoneNumber());
+        model.addAttribute("name", userForm.getName());
+        model.addAttribute("lastname", userForm.getLastname());
+        model.addAttribute("city", userForm.getCity());
+        model.addAttribute("carLicenceId", userForm.getCarLicenceId());
+        model.addAttribute("emailAdress", userForm.getEmailAdress());
+        model.addAttribute("phoneNumber", userForm.getPhoneNumber());
+        userService.addUser(user);
+        return "redirect:/user";
+    }
+
 
 
 

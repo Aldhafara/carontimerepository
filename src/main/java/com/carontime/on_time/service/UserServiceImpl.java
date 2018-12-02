@@ -8,7 +8,7 @@ import com.carontime.on_time.repository.UserRepository;
 import java.util.List;
 
 @Service
-public class UserServiceImpl implements userService{
+public class UserServiceImpl implements UserService {
 
     private UserRepository userRepository;
 
