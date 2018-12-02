@@ -1,9 +1,8 @@
-package com.carontime.on_time.service;
+package com.carontime.on_time.service.carservice;
 
 import com.carontime.on_time.model.car.Car;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface CarService {
     Car addCar(Car car);

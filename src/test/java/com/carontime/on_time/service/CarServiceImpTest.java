@@ -2,6 +2,7 @@ package com.carontime.on_time.service;
 
 import com.carontime.on_time.model.car.Car;
 import com.carontime.on_time.repository.CarRepository;
+import com.carontime.on_time.service.carservice.CarService;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -22,7 +23,6 @@ public class CarServiceImpTest {
     @Autowired private CarService carService;
     @Autowired private CarRepository carRepository;
     private List<Car> carList = new ArrayList<>();
-
 
     @Before
     public void before() {
