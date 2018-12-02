@@ -56,4 +56,24 @@ public class CarServiceImpTest {
         assertThat(carService.isExists(carToRemove.getId())).isFalse();
     }
 
+    @Test
+    public void checkIfCarIsGettingSuccessfully() {
+        Car carToCheck = carList.get(1);
+        Car carFromDB;
+        carService.addCar(carToCheck);
+        carFromDB = carService.getCar(carToCheck.getId());
+        assertThat(carToCheck).isEqualTo(carFromDB);
+    }
+
+    @Test
+    public void checkIfSerivceWillReturnFullListOfCarsInDB() {
+        carService.addCar(carList.get(0));
+        carService.addCar(carList.get(1));
+        carService.addCar(carList.get(2));
+
+        List<Car> listOfCarsFromDB = carService.getAll();
+
+        assertThat(listOfCarsFromDB.size()).isEqualTo(carList.size());
+        assertThat(listOfCarsFromDB).containsAll(carList);
+    }
 }
