@@ -12,7 +12,7 @@ public class Car {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
     private CarStatus status = CarStatus.UNUSED;
-    private Point2D.Double localization = new Point2D.Double();
+    private Point2D.Double localization = new Point2D.Double(53.0008453,18.6137131);
 
     public Car() {
     }
