@@ -5,6 +5,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import java.awt.geom.Point2D;
+import java.util.Objects;
 
 @Entity
 public class Car {
@@ -41,5 +42,20 @@ public class Car {
 
     public void setLocalization(Point2D.Double localization) {
         this.localization = localization;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Car car = (Car) o;
+        return id == car.id &&
+                status == car.status &&
+                Objects.equals(localization, car.localization);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, status, localization);
     }
 }
