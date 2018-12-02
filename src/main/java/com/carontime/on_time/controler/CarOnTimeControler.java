@@ -36,7 +36,8 @@ public class CarOnTimeControler {
     }
 
     @GetMapping("/user")
-    public String user() {
+    public String user(Model model) {
+//        model.addAttribute("user");
         return "user/userdata";
     }
 
