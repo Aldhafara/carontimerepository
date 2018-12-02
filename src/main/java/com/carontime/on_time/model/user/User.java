@@ -1,5 +1,8 @@
 package com.carontime.on_time.model.user;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -28,6 +31,16 @@ public class User {
         this.emailAdress = emailAdress;
         this.phoneNumber = phoneNumber;
         this.wallet = wallet;
+    }
+
+    @JsonCreator
+    public User(@JsonProperty("name") String name, @JsonProperty("lastname") String lastname, @JsonProperty("ciyt") String city, @JsonProperty("carLicenceId") String carLicenceId, @JsonProperty("emailAdress") String emailAdress, @JsonProperty("phoneNumber") int phoneNumber) {
+        this.name = name;
+        this.lastname = lastname;
+        this.city = city;
+        this.carLicenceId = carLicenceId;
+        this.emailAdress = emailAdress;
+        this.phoneNumber = phoneNumber;
     }
 
     public int getId() {
