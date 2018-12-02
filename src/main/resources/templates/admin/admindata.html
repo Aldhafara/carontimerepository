@@ -11,8 +11,15 @@
 <section layout:fragment="content">
 <div>
     <form action="#" th:action="@{/admin}" method="post" >
-        <label for="status"> Status: </label><input type="text" id="status" name="status">
-        <label for="localization"> Localization: </label><input type="number" id="localization" name="localization">
+        <label for="status"> Status: </label>
+        <select name="status">
+            <option th:value="INUSE">używany</option>
+            <option th:value="UNUSED">wolny</option>
+            <option th:value="BROKEN">zepsuty</option>
+        </select>
+        <label> Localization: </label>
+            <input type="number" id="latitude" name="latitude">
+            <input type="number" id="longitude" name="longitude">
         <input type="submit" value="Save">
     </form>
 </div>

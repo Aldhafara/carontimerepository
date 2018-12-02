@@ -24,6 +24,11 @@ public class Car {
         this.localization = localization;
     }
 
+    public Car(CarStatus status, Point2D.Double localization) {
+        this.status = status;
+        this.localization = localization;
+    }
+
     public int getId() {
         return id;
     }
