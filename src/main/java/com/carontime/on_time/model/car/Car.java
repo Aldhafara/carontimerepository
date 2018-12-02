@@ -11,8 +11,8 @@ public class Car {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
-    private CarStatus status=CarStatus.UNUSED;
-    private Point2D.Double localization;
+    private CarStatus status = CarStatus.UNUSED;
+    private Point2D.Double localization = new Point2D.Double();
 
     public Car() {
     }
