@@ -2,7 +2,7 @@ package com.carontime.on_time.controler;
 
 import com.carontime.on_time.model.car.Car;
 import com.carontime.on_time.model.car.CarForm;
-import com.carontime.on_time.service.CarService;
+import com.carontime.on_time.service.carservice.CarService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
