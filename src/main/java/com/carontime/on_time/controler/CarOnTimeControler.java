@@ -2,7 +2,6 @@ package com.carontime.on_time.controler;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
@@ -32,6 +31,9 @@ public class CarOnTimeControler {
     public String map() {
         return "mapapi/mapapi";
     }
+
+    @GetMapping("/user/edit")
+    public String edit() { return "user/edit"; }
 
 
 

@@ -9,10 +9,21 @@
 </head>
 <body>
 <section layout:fragment="content">
+    <!--<label> Name: </label><p th:text="${user.name}"></p>-->
+    <!--<label> Lastname: </label><p th:text="${user.lastname}"></p>-->
+    <!--<label> City: </label><p th:text="${user.city}"></p>-->
+    <!--<label> Car Licence ID: </label><p th:text="${user.carLicenceId}"></p>-->
+    <!--<label> Email: </label><p th:text="${user.emailAdress}"></p>-->
+    <!--<label> Phone: </label><p th:text="${user.phoneNumber}"></p>-->
     <div th:align="center">
-        <form action="/user/map" method="get">
-            <input type="submit"  value="USER/MAP"/>
+    <form action="/user/map" method="get">
+            <input type="submit" value="USER/MAP"/>
         </form>
+        <br>
+        <form action="/user/edit" method="get">
+            <input type="submit" value="edit">
+        </form>
+    </div>
 </section>
 
 </body>
