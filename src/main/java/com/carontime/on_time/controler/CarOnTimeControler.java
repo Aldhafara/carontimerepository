@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.awt.geom.Point2D;
+import java.util.List;
 
 @Controller
 @RequestMapping
@@ -57,7 +58,14 @@ public class CarOnTimeControler {
     }
 
     @GetMapping("/user/map")
-    public String map() {
+    public String map(Model model) {
+        List<Car> cars = carService.getAll();
+        model.addAttribute("lat", cars.get(0).getLocalization().x);
+        System.out.println(cars.get(0).getLocalization().x);
+        model.addAttribute("lng", cars.get(0).getLocalization().y);
+        System.out.println(cars.get(0).getLocalization().y);
+        model.addAttribute("status", cars.get(0).getStatus());
+        System.out.println(cars.get(0).getStatus());
         return "mapapi/mapapi";
     }
 

@@ -16,11 +16,19 @@
             width: 100%;
         }
     </style>
+    <script th:src="@{jQuery.js}"></script>
 </head>
 <body>
+<form id="database">
+<input id="lng" type="hidden" name="LOCALIZATION" th:value="${lng}" />
+<input id="lat" type="hidden" name="LOCALIZATION" th:value="${lat}" />
+<input id="stat" type="hidden" name="STATUS" th:value="${status}" />
+</form>
 <section layout:fragment="content">
     <div id="map"></div>
+
     <script>
+
         var map;
         function initMap() {
 
@@ -30,41 +38,44 @@
                 document.getElementById('map'), {zoom: 12, center: center});
 
             var icons = {
-                in_use: {
-                    icon: "in_use.png"
-                },
-                unuse: {
+            UNUSED: {
                     icon: "unuse.png"
                 },
-                broken: {
+            INUSE: {
+                    icon: "in_use.png"
+                },
+            BROKEN: {
                     icon: "broken.png"
                 }
             };
 
             var features = [
                 {
-                    position: new google.maps.LatLng(53.015, 18.596197),
-                    type: 'broken'
-                }, {
-                    position: new google.maps.LatLng(53.0152, 18.593),
-                    type: 'unuse'
-                }, {
-                    position: new google.maps.LatLng(53.0154, 18.599),
-                    type: 'in_use'
-                }, {
-                    position: new google.maps.LatLng(53.0156, 18.600),
-                    type: 'in_use'
-                }, {
-                    position: new google.maps.LatLng(53.016, 18.61),
-                    type: 'unuse'
+                    position: new google.maps.LatLng($('#lat').valueOf(), $('#lng').valueOf()),
+                    type: $('#stat').valueOf()
                 }
+                // ,
+                // {
+                //     position: new google.maps.LatLng(53.0152, 18.593),
+                //     type: '1'
+                // }
+                // }, {
+                //     position: new google.maps.LatLng(53.0154, 18.599),
+                //     type: '0'
+                // }, {
+                //     position: new google.maps.LatLng(53.0156, 18.600),
+                //     type: '0'
+                // }, {
+                //     position: new google.maps.LatLng(53.016, 18.61),
+                //     type: '1'
+                // }
             ];
 
             // Create markers.
             var markers = features.map(function (feature) {
                 return new google.maps.Marker({
                     position: feature.position,
-                    icon: icons[feature.type].icon,
+                    // icon: icons[feature.type].icon,
                     map: map
                 });
             });
@@ -74,7 +85,10 @@
                 {imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'});
         }
 
-
+        // $(document).ready(function() {
+        //
+        //     console.log("TEST: " + features[0]['type']);
+        // })
     </script>
     <script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js">
     </script>
