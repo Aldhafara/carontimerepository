@@ -36,9 +36,9 @@ public class User {
         this.wallet = wallet;
     }
 
-
-    @JsonCreator
-    public User(@JsonProperty("username") String username, @JsonProperty ("password") String password,@JsonProperty("name") String name, @JsonProperty("lastname") String lastname, @JsonProperty("city") String city, @JsonProperty("carLicenceId") String carLicenceId, @JsonProperty("emailAdress") String emailAdress, @JsonProperty("phoneNumber") int phoneNumber) {
+    public User(String username, String password, String name, String lastname,
+                String city, String carLicenceId, String emailAdress, int phoneNumber,
+                int wallet) {
         this.username = username;
         this.password = password;
         this.name = name;
@@ -47,9 +47,9 @@ public class User {
         this.carLicenceId = carLicenceId;
         this.emailAdress = emailAdress;
         this.phoneNumber = phoneNumber;
+        this.wallet = wallet;
     }
-
-//    public User(String name, String lastname, String city, String carLicenceId, String emailAdress, int phoneNumber) {
+    //    public User(String name, String lastname, String city, String carLicenceId, String emailAdress, int phoneNumber) {
 //        this.name = name;
 //        this.lastname = lastname;
 //        this.city = city;
@@ -59,6 +59,10 @@ public class User {
 //    }
 
     public User() {
+
+    }
+
+    public User(String username, String password, String name, String lastname, String city, String carLicenceId, String emailAdress, int phoneNumber) {
 
     }
 
@@ -141,6 +145,8 @@ public class User {
         return id == user.id &&
                 phoneNumber == user.phoneNumber &&
                 wallet == user.wallet &&
+                Objects.equals(username, user.username) &&
+                Objects.equals(password, user.password) &&
                 Objects.equals(name, user.name) &&
                 Objects.equals(lastname, user.lastname) &&
                 Objects.equals(city, user.city) &&
@@ -150,6 +156,7 @@ public class User {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, lastname, city, carLicenceId, emailAdress, phoneNumber, wallet);
+
+        return Objects.hash(id, username, password, name, lastname, city, carLicenceId, emailAdress, phoneNumber, wallet);
     }
 }
