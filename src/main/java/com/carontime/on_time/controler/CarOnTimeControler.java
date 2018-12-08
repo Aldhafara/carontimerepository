@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.awt.geom.Point2D;
 
@@ -30,6 +31,7 @@ public class CarOnTimeControler {
     public String start() {
         return "layout";
     }
+
     @GetMapping("/index")
     public String index() {
         return "index";
@@ -37,7 +39,9 @@ public class CarOnTimeControler {
 
     @GetMapping("/user")
     public String user(Model model) {
-//        model.addAttribute("user");
+        if(!model.containsAttribute("userForm")){
+            model.addAttribute(new UserForm());
+        }
         return "user/userdata";
     }
 
@@ -65,14 +69,9 @@ public class CarOnTimeControler {
     public String edit() { return "user/edit"; }
 
     @PostMapping("/user/edit")
-    public String editUser(@ModelAttribute UserForm userForm, Model model) {
+    public String editUser(UserForm userForm, RedirectAttributes model) {
         User user = new User(userForm.getName(), userForm.getLastname(), userForm.getCity(), userForm.getCarLicenceId(), userForm.getEmailAdress(), userForm.getPhoneNumber());
-        model.addAttribute("name", userForm.getName());
-        model.addAttribute("lastname", userForm.getLastname());
-        model.addAttribute("city", userForm.getCity());
-        model.addAttribute("carLicenceId", userForm.getCarLicenceId());
-        model.addAttribute("emailAdress", userForm.getEmailAdress());
-        model.addAttribute("phoneNumber", userForm.getPhoneNumber());
+        model.addFlashAttribute(userForm);
         userService.addUser(user);
         return "redirect:/user";
     }
