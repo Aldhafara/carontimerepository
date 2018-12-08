@@ -1,21 +1,23 @@
 package com.carontime.on_time.model.user;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.carontime.on_time.login.Role;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
-@JsonIgnoreProperties(ignoreUnknown = true)
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
+    private Long id;
+    private String username;
+    private String password;
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "users_roles",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id"))
+    private Set<Role> roles;
     private String name;
     private String lastname;
     private String city;
@@ -24,7 +26,10 @@ public class User {
     private int phoneNumber;
     private int wallet = 0;
 
-    public User(String name, String lastname, String city, String carLicenceId, String emailAdress, int phoneNumber, int wallet) {
+    public User(String username, String password, Set<Role> roles, String name, String lastname, String city, String carLicenceId, String emailAdress, int phoneNumber, int wallet) {
+        this.username = username;
+        this.password = password;
+        this.roles = roles;
         this.name = name;
         this.lastname = lastname;
         this.city = city;
@@ -34,8 +39,8 @@ public class User {
         this.wallet = wallet;
     }
 
-    @JsonCreator
-    public User(@JsonProperty("name") String name, @JsonProperty("lastname") String lastname, @JsonProperty("city") String city, @JsonProperty("carLicenceId") String carLicenceId, @JsonProperty("emailAdress") String emailAdress, @JsonProperty("phoneNumber") int phoneNumber) {
+
+    public User(String name,String lastname, String city, String carLicenceId, String emailAdress, int phoneNumber) {
         this.name = name;
         this.lastname = lastname;
         this.city = city;
@@ -44,24 +49,38 @@ public class User {
         this.phoneNumber = phoneNumber;
     }
 
-//    public User(String name, String lastname, String city, String carLicenceId, String emailAdress, int phoneNumber) {
-//        this.name = name;
-//        this.lastname = lastname;
-//        this.city = city;
-//        this.carLicenceId = carLicenceId;
-//        this.emailAdress = emailAdress;
-//        this.phoneNumber = phoneNumber;
-//    }
+    public User(){}
 
-    public User() {
-
-    }
-
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public Set<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
+    }
+
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -117,6 +136,9 @@ public class User {
     public String toString() {
         return "User{" +
                 "id=" + id +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", roles=" + roles +
                 ", name='" + name + '\'' +
                 ", lastname='" + lastname + '\'' +
                 ", city='" + city + '\'' +
@@ -135,6 +157,9 @@ public class User {
         return id == user.id &&
                 phoneNumber == user.phoneNumber &&
                 wallet == user.wallet &&
+                Objects.equals(username, user.username) &&
+                Objects.equals(password, user.password) &&
+                Objects.equals(roles, user.roles) &&
                 Objects.equals(name, user.name) &&
                 Objects.equals(lastname, user.lastname) &&
                 Objects.equals(city, user.city) &&
@@ -144,6 +169,6 @@ public class User {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, lastname, city, carLicenceId, emailAdress, phoneNumber, wallet);
+        return Objects.hash(id, username, password, roles, name, lastname, city, carLicenceId, emailAdress, phoneNumber, wallet);
     }
 }

@@ -1,9 +1,9 @@
 package com.carontime.on_time.service;
 
+import com.carontime.on_time.repository.UserRepository;
 import com.carontime.on_time.model.user.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.carontime.on_time.repository.UserRepository;
 
 import java.util.List;
 
