@@ -26,14 +26,18 @@
 
             // locations to use with markers
             // TODO: implement variables for lat and lng
-            var torun = {lat: 53.014421, lng: 18.598591};
+            // var car = [[${car}]];
+            // var torun = {lat: car.location.lat, lng: car.location.lng};
             var torun2 = {lat: 53.05, lng: 18.65};
+
             // The map, centered at Toruń 53.014421, 18.598591
             var map = new google.maps.Map(
-                document.getElementById('map'), {zoom: 12, center: torun});
+                document.getElementById('map'), {zoom: 12, center: torun2});
+
             // The marker, positioned at Toruń
-            var marker = new google.maps.Marker({position: torun, map: map});
+            var marker = new google.maps.Marker({position: torun2, map: map});
             // The marker, with beachflag.png
+
             var image = 'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png';
             var beachMarker = new google.maps.Marker({
                 position: torun2,
