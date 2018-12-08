@@ -16,6 +16,8 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
+    private String username;
+    private String password;
     private String name;
     private String lastname;
     private String city;
@@ -34,8 +36,11 @@ public class User {
         this.wallet = wallet;
     }
 
+
     @JsonCreator
-    public User(@JsonProperty("name") String name, @JsonProperty("lastname") String lastname, @JsonProperty("city") String city, @JsonProperty("carLicenceId") String carLicenceId, @JsonProperty("emailAdress") String emailAdress, @JsonProperty("phoneNumber") int phoneNumber) {
+    public User(@JsonProperty("username") String username, @JsonProperty ("password") String password,@JsonProperty("name") String name, @JsonProperty("lastname") String lastname, @JsonProperty("city") String city, @JsonProperty("carLicenceId") String carLicenceId, @JsonProperty("emailAdress") String emailAdress, @JsonProperty("phoneNumber") int phoneNumber) {
+        this.username = username;
+        this.password = password;
         this.name = name;
         this.lastname = lastname;
         this.city = city;
@@ -117,6 +122,7 @@ public class User {
     public String toString() {
         return "User{" +
                 "id=" + id +
+                ", username='" + username +'\'' +
                 ", name='" + name + '\'' +
                 ", lastname='" + lastname + '\'' +
                 ", city='" + city + '\'' +

@@ -101,4 +101,28 @@ public class CarOnTimeControler {
         }
         return "redirect:/user/edit";
     }
+
+    @GetMapping("/register")
+    public String userRegisterPage(){
+        return "user/registration/register";
+    }
+
+    @PostMapping("/register")
+    public String saveRegisterUser(UserForm userForm, RedirectAttributes model) {
+            User user = new User(userForm.getName(), userForm.getLastname(), userForm.getCity(), userForm.getCarLicenceId(), userForm.getEmailAdress(), userForm.getPhoneNumber());
+            model.addFlashAttribute(userForm);
+            userService.addUser(user);
+            return ("redirect:/registred_success");
+            }
+    @GetMapping("/registred_success")
+    public String registredSuccess(){
+        return "user/registration/registredSuccess";
+    }
+
+
+
+
+
+
+
 }
