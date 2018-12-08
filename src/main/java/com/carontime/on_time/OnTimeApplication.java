@@ -12,7 +12,7 @@ import org.springframework.boot.CommandLineRunner;
 import java.awt.geom.Point2D;
 
 @SpringBootApplication
-public class OnTimeApplication {
+public class OnTimeApplication implements CommandLineRunner{
 
     public static void main(String[] args) {
         SpringApplication.run(OnTimeApplication.class,args);
@@ -23,7 +23,7 @@ public class OnTimeApplication {
 
 
 
-    //@Override
+    @Override
     public void run(String... strings) throws Exception {
         System.out.println("Hello Spring");
 

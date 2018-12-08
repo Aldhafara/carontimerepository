@@ -24,27 +24,122 @@
         var map;
         function initMap() {
 
-            // locations to use with markers
-            // TODO: implement variables for lat and lng
-            // var car = [[${car}]];
-            // var torun = {lat: car.location.lat, lng: car.location.lng};
-            var torun2 = {lat: 53.05, lng: 18.65};
-
-            // The map, centered at Toruń 53.014421, 18.598591
+            var center = {lat: 53.014541, lng: 18.596197};
+            // The map, centered at Toruń 53.014421, 18.598591 53.014541, 18.596197
             var map = new google.maps.Map(
-                document.getElementById('map'), {zoom: 12, center: torun2});
+                document.getElementById('map'), {zoom: 12, center: center});
+            // Create an array of alphabetical characters used to label the markers.
+            var labels = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 
-            // The marker, positioned at Toruń
-            var marker = new google.maps.Marker({position: torun2, map: map});
-            // The marker, with beachflag.png
+            // var icons = {
+            //     in_use: {
+            //         icon: "in_use.png"
+            //     },
+            //     unuse: {
+            //         icon: "unuse.png"
+            //     },
+            //     broken: {
+            //         icon: "broken.png"
+            //     }
+            // };
+            // var features = [
+            //     {
+            //         position: new google.maps.LatLng(-33.91721, 151.22630),
+            //         type: 'info'
+            //     }, {
+            //         position: new google.maps.LatLng(-33.91539, 151.22820),
+            //         type: 'info'
+            //     }, {
+            //         position: new google.maps.LatLng(-33.91747, 151.22912),
+            //         type: 'info'
+            //     }, {
+            //         position: new google.maps.LatLng(-33.91910, 151.22907),
+            //         type: 'info'
+            //     }, {
+            //         position: new google.maps.LatLng(-33.91725, 151.23011),
+            //         type: 'info'
+            //     }, {
+            //         position: new google.maps.LatLng(-33.91872, 151.23089),
+            //         type: 'info'
+            //     }, {
+            //         position: new google.maps.LatLng(-33.91784, 151.23094),
+            //         type: 'info'
+            //     }, {
+            //         position: new google.maps.LatLng(-33.91682, 151.23149),
+            //         type: 'info'
+            //     }, {
+            //         position: new google.maps.LatLng(-33.91790, 151.23463),
+            //         type: 'info'
+            //     }, {
+            //         position: new google.maps.LatLng(-33.91666, 151.23468),
+            //         type: 'info'
+            //     }, {
+            //         position: new google.maps.LatLng(-33.916988, 151.233640),
+            //         type: 'info'
+            //     }, {
+            //         position: new google.maps.LatLng(-33.91662347903106, 151.22879464019775),
+            //         type: 'parking'
+            //     }, {
+            //         position: new google.maps.LatLng(-33.916365282092855, 151.22937399734496),
+            //         type: 'parking'
+            //     }, {
+            //         position: new google.maps.LatLng(-33.91665018901448, 151.2282474695587),
+            //         type: 'parking'
+            //     }, {
+            //         position: new google.maps.LatLng(-33.919543720969806, 151.23112279762267),
+            //         type: 'parking'
+            //     }, {
+            //         position: new google.maps.LatLng(-33.91608037421864, 151.23288232673644),
+            //         type: 'parking'
+            //     }, {
+            //         position: new google.maps.LatLng(-33.91851096391805, 151.2344058214569),
+            //         type: 'parking'
+            //     }, {
+            //         position: new google.maps.LatLng(-33.91818154739766, 151.2346203981781),
+            //         type: 'parking'
+            //     }, {
+            //         position: new google.maps.LatLng(-33.91727341958453, 151.23348314155578),
+            //         type: 'library'
+            //     }
+            // ];
+            //
+            // // Create markers.
+            // features.forEach(function(feature) {
+            //     var marker = new google.maps.Marker({
+            //         position: feature.position,
+            //         icon: icons[feature.type].icon,
+            //         map: map
+            //     });
+            // });
 
-            var image = 'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png';
-            var beachMarker = new google.maps.Marker({
-                position: torun2,
-                map: map,
-                icon: image
+
+
+            // Add some markers to the map.
+            // Note: The code uses the JavaScript Array.prototype.map() method to
+            // create an array of markers based on a given "locations" array.
+            // The map() method here has nothing to do with the Google Maps API.
+            var markers = locations.map(function(location, i) {
+                return new google.maps.Marker({
+                    icon: "in_use.png",
+                    position: location,
+                    label: labels[i % labels.length]
+                });
             });
+
+            // Add a marker clusterer to manage the markers.
+            var markerCluster = new MarkerClusterer(map, markers,
+                {imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'});
         }
+        var locations = [
+            {lat: 53.015, lng: 18.596197},
+            {lat: 53.0152, lng: 18.593},
+            {lat: 53.0154, lng: 18.599},
+            {lat: 53.115, lng: 18.596197},
+            {lat: 53.1152, lng: 18.593}
+        ]
+
+    </script>
+    <script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js">
     </script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAuI8FWXrvR72kDdXgxznYMl5zvoli8cy4&callback=initMap"
             async defer></script>
