@@ -1,6 +1,6 @@
 package com.carontime.on_time.controler;
 
-import com.carontime.on_time.dao.UserDao;
+import com.carontime.on_time.dto.UserDto;
 import com.carontime.on_time.forms.UserEditForm;
 import com.carontime.on_time.model.car.Car;
 import com.carontime.on_time.model.car.CarForm;
@@ -19,10 +19,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import javax.naming.Binding;
 import javax.validation.Valid;
 import java.awt.geom.Point2D;
-import java.io.IOException;
 import java.security.Principal;
 
 @Controller
@@ -76,7 +74,7 @@ public class CarOnTimeControler {
     @GetMapping("/user/edit")
     public String edit(Principal principal, Model model) {
         if(!model.containsAttribute("userEditForm")) {
-            model.addAttribute("userEditForm", UserDao.toUserForm(userService.getUserById(TEST_USER_ID)));
+            model.addAttribute("userEditForm", UserDto.toUserForm(userService.getUserById(TEST_USER_ID)));
         }
         return "user/edit";
     }
