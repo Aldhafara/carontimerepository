@@ -6,7 +6,7 @@ import javax.validation.constraints.Pattern;
 
 public class UserForm {
 
-    @Pattern(regexp = "^[A-Za-zĄąĆćĘęŁłŃńÓóŚśŻŹźż]{1,32}$", message="Login musi składać się z liter i być długości od 1 do 32 znaków")
+    @Pattern(regexp = "^[A-Za-z\\d]{1,32}$", message="Login musi składać się z liter i być długości od 1 do 32 znaków")
     private String username;
     @Pattern(regexp = "^[A-Za-z\\d]{6,32}$", message = "Hasło musi sie składać z conajmniej 6 znaków")
     private String password;

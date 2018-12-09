@@ -126,6 +126,12 @@ public class CarOnTimeControler {
                 model.addFlashAttribute(userForm);
                 return "redirect:/register";
             }
+            if(userService.getUserByUsername(userForm.getUsername()) != null){
+                Result result = new Result("Użytkownik juz istnieje");
+                model.addFlashAttribute("errors", result);
+                model.addFlashAttribute(userForm);
+                return "redirect:/register";
+            }
             User user = new User(userForm.getUsername(), passwordEncoder.encode(userForm.getPassword()), userForm.getName(), userForm.getLastname(), userForm.getCity(), userForm.getCarLicenceId(), userForm.getEmailAdress(), userForm.getPhoneNumber());
             model.addFlashAttribute(userForm);
             userService.addUser(user);
