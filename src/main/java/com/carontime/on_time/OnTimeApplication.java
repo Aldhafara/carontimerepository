@@ -21,7 +21,6 @@ import java.util.Set;
 
 @SpringBootApplication
 public class OnTimeApplication implements CommandLineRunner{
-public class OnTimeApplication implements CommandLineRunner {
 
     @Autowired
     private CarRepository carRepository;
@@ -39,8 +38,6 @@ public class OnTimeApplication implements CommandLineRunner {
         SpringApplication.run(OnTimeApplication.class,args);
     }
 
-    @Autowired
-    private CarRepository carRepository;
 
 
 
