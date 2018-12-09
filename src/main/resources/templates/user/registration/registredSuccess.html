@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html   xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        layout:decorate="layout"
+        lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>RegistredSuccess</title>
+</head>
+<body>
+<section layout:fragment="content">
+
+    <div align="center">Rejestracja przeszła pomyslnie</div>
+
+    <div align="center">
+        <h1>Wróć do strony głównej</h1>
+        <form action="/index" method="get">
+            <input type="submit" name="goBackIndex" value="Wróc">
+        </form>
+    </div>
+</section>
+
+</body>
+</html>

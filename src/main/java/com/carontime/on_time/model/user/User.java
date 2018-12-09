@@ -39,14 +39,18 @@ public class User {
         this.wallet = wallet;
     }
 
-
-    public User(String name,String lastname, String city, String carLicenceId, String emailAdress, int phoneNumber) {
+    public User(String username, String password, String name, String lastname,
+                String city, String carLicenceId, String emailAdress, int phoneNumber,
+                int wallet) {
+        this.username = username;
+        this.password = password;
         this.name = name;
         this.lastname = lastname;
         this.city = city;
         this.carLicenceId = carLicenceId;
         this.emailAdress = emailAdress;
         this.phoneNumber = phoneNumber;
+        this.wallet = wallet;
     }
 
     public User(){}
