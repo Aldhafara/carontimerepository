@@ -35,6 +35,8 @@ public class CarOnTimeControler {
 
     @Autowired
     private PasswordEncoder passwordEncoder;
+    @Autowired
+    private RoleRepository roleRepository;
 
     private CarService carService;
     private UserService userService;
@@ -56,26 +58,10 @@ public class CarOnTimeControler {
     }
 
     @PostMapping("/admin")
-    public String add(@ModelAttribute CarForm carForm, Model model) {
+    public String add(CarForm carForm) {
         Car car = new Car(carForm.getStatus(), new Point2D.Double(carForm.getLatitude(), carForm.getLongitude()));
-        model.addAttribute("status", carForm.getStatus());
-        model.addAttribute("latitude", carForm.getLatitude());
-        model.addAttribute("longitude", carForm.getLongitude());
         carService.addCar(car);
-        return "admin/admindata";
-    }
-
-    @GetMapping("/user/map")
-    public String map(Model model) {
-        List<Car> cars = carService.getAll();
-        model.addAttribute("lat", cars.get(0).getLocalization().x);
-        System.out.println(cars.get(0).getLocalization().x);
-        model.addAttribute("lng", cars.get(0).getLocalization().y);
-        System.out.println(cars.get(0).getLocalization().y);
-        model.addAttribute("status", cars.get(0).getStatus());
-        System.out.println(cars.get(0).getStatus());
-        model.addAttribute("listOfCars",cars);
-        return "mapapi/mapapi";
+        return "redirect:/admin";
     }
 
     @GetMapping("/user/edit")
@@ -114,9 +100,6 @@ public class CarOnTimeControler {
         }
         return "user/registration/register";
     }
-
-    @Autowired
-    private RoleRepository roleRepository;
 
     @PostMapping("/register")
     public String saveRegisterUser(@Valid UserForm userForm, BindingResult bindingResult, RedirectAttributes model) {
