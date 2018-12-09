@@ -8,7 +8,7 @@ import com.carontime.on_time.model.car.Car;
 import com.carontime.on_time.model.car.CarForm;
 import com.carontime.on_time.model.result.Result;
 import com.carontime.on_time.model.user.User;
-import com.carontime.on_time.model.user.UserForm;
+import com.carontime.on_time.forms.UserForm;
 import com.carontime.on_time.service.UserService;
 import com.carontime.on_time.service.carservice.CarService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,8 +36,6 @@ public class CarOnTimeControler {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    private final Long TEST_USER_ID = 226L;
-
     private CarService carService;
     private UserService userService;
 
@@ -50,14 +48,6 @@ public class CarOnTimeControler {
     @GetMapping(value = {"/", "/index"})
     public String index() {
         return "index";
-    }
-
-    @GetMapping("/user")
-    public String user(Model model) {
-        if(!model.containsAttribute("userForm")){
-            model.addAttribute(new UserForm());
-        }
-        return "user/userdata";
     }
 
     @GetMapping("/admin")
@@ -91,7 +81,7 @@ public class CarOnTimeControler {
     @GetMapping("/user/edit")
     public String edit(Principal principal, Model model) {
         if(!model.containsAttribute("userEditForm")) {
-            model.addAttribute("userEditForm", UserDto.toUserForm(userService.getUserById(TEST_USER_ID)));
+            model.addAttribute("userEditForm", UserDto.toUserForm(userService.getUserByUsername(principal.getName())));
         }
         return "user/edit";
     }
@@ -105,7 +95,7 @@ public class CarOnTimeControler {
         } else {
             Result result = new Result();
             try {
-                User user = userService.getUserById(TEST_USER_ID);
+                User user = userService.getUserByUsername(principal.getName());
                 userService.updateUserData(user, userEditForm);
                 result.addMessage("Pomyślnie edytowano dane użytkownika");
             } catch(RuntimeException e) {
@@ -118,7 +108,10 @@ public class CarOnTimeControler {
     }
 
     @GetMapping("/register")
-    public String userRegisterPage(){
+    public String userRegisterPage(Model model){
+        if(!model.containsAttribute("userForm")){
+            model.addAttribute("userForm", new UserForm());
+        }
         return "user/registration/register";
     }
 
@@ -126,26 +119,39 @@ public class CarOnTimeControler {
     private RoleRepository roleRepository;
 
     @PostMapping("/register")
-    public String saveRegisterUser(UserForm userForm, RedirectAttributes model) {
+    public String saveRegisterUser(@Valid UserForm userForm, BindingResult bindingResult, RedirectAttributes model) {
+        if (bindingResult.hasErrors()) {
+            Result result = new Result();
+            bindingResult.getAllErrors().forEach(msg -> result.addMessage(msg.getDefaultMessage()));
+            model.addFlashAttribute("errors", result);
+            model.addFlashAttribute(userForm);
+            return "redirect:/register";
+        } else {
+            if (!userForm.confirmPassword()) {
+                Result result = new Result("Hasla sa rożne od siebie");
+                model.addFlashAttribute("errors", result);
+                model.addFlashAttribute(userForm);
+                return "redirect:/register";
+            }
+            if(userService.getUserByUsername(userForm.getUsername()) != null){
+                Result result = new Result("Użytkownik juz istnieje");
+                model.addFlashAttribute("errors", result);
+                model.addFlashAttribute(userForm);
+                return "redirect:/register";
+            }
+            Role userRole = roleRepository.save(new Role("USER"));
+            Set<Role> userRoles = new HashSet<>();
+            userRoles.add(userRole);
 
-        Role userRole = roleRepository.save(new Role("USER"));
-        Set<Role> userRoles = new HashSet<>();
-        userRoles.add(userRole);
-        User user = new User(userForm.getUsername(), passwordEncoder.encode(userForm.getPassword()), userForm.getName(), userForm.getLastname(), userForm.getCity(), userForm.getCarLicenceId(), userForm.getEmailAdress(), userForm.getPhoneNumber());
+            User user = new User(userForm.getUsername(), passwordEncoder.encode(userForm.getPassword()), userForm.getName(), userForm.getLastname(), userForm.getCity(), userForm.getCarLicenceId(), userForm.getEmailAdress(), userForm.getPhoneNumber());
             model.addFlashAttribute(userForm);
             user.setRoles(userRoles);
             userService.addUser(user);
             return ("redirect:/registred_success");
-            }
+        }
+    }
     @GetMapping("/registred_success")
     public String registredSuccess(){
         return "user/registration/registredSuccess";
     }
-
-
-
-
-
-
-
 }

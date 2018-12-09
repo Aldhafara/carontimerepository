@@ -1,34 +1,46 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-        lang="en">
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout"
+        lang="en"
+
+>
 <head>
     <meta charset="UTF-8">
     <title>Formularz rejestracji</title>
 </head>
 <body>
+<section layout:fragment="content">
 
 <div align="center">
-    <form th:action="@{/register}" method="post" >
-        <label for="username">User Name:</label><input type="text" id="username" name="username">
+
+    <div th:if="${errors != null}">
+        <p>Wystąpiły byłędy przy wysyłaniu formularza:</p>
+        <p th:each="error : ${errors.getMessages()}" th:text="${error}"></p>
+    </div>
+
+    <form th:action="@{/register}" method="post" th:object="${userForm}">
+        <label for="username">User Name:</label><input type="text" id="username" name="username" th:value="*{username}">
         <br>
-        <label for="password">Password: </label><input type="password" id="password" name="password">
+        <label for="password">Password: </label><input type="password" id="password" name="password" th:value="*{password}">
         <br>
-        <label for="confirmpassword">Confirm Password:</label><input type="password" id="confirmpassword" name="confirmpassword">
+        <label for="confirmpassword">Confirm Password:</label><input type="password" id="confirmpassword" name="confirmpassword" th:value="*{confirmpassword}">
         <br>
-        <label for="name"> Name: </label><input type="text" id="name" name="name">
+        <label for="name"> Name: </label><input type="text" id="name" name="name" th:value="*{name}">
         <br>
-        <label for="lastname"> Lastname: </label><input type="text" id="lastname" name="lastname">
+        <label for="lastname"> Lastname: </label><input type="text" id="lastname" name="lastname" th:value="*{lastname}">
         <br>
-        <label for="city"> City: </label><input type="text" id="city" name="city">
+        <label for="city"> City: </label><input type="text" id="city" name="city" th:value="*{city}">
         <br>
-        <label for="carLicenceId"> Car Licence ID: </label><input type="text" id="carLicenceId" name="carLicenceId">
+        <label for="carLicenceId"> Car Licence ID: </label><input type="text" id="carLicenceId" name="carLicenceId" th:value="*{carLicenceId}">
         <br>
-        <label for="emailAdress"> Email: </label><input type="text" id="emailAdress" name="emailAdress">
+        <label for="emailAdress"> Email: </label><input type="text" id="emailAdress" name="emailAdress" th:value="*{emailAdress}">
         <br>
-        <label for="phoneNumber"> Phone: </label><input type="text" id="phoneNumber" name="phoneNumber">
+        <label for="phoneNumber"> Phone: </label><input type="text" id="phoneNumber" name="phoneNumber" th:value="*{phoneNumber}">
         <br>
         <input type="submit" value="Save">
     </form>
 </div>
+</section>
 </body>
 </html>

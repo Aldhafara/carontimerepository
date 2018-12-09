@@ -11,6 +11,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.thymeleaf.extras.springsecurity4.dialect.SpringSecurityDialect;
 
 @Configuration
 @EnableWebSecurity
@@ -29,14 +30,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers("/index").permitAll()
+                .antMatchers("/index", "/").permitAll()
                 .antMatchers("/h2/**").permitAll()
                 .antMatchers("/admin").permitAll()
-                .antMatchers("/register").permitAll()
+                .antMatchers("/register", "/registred_success").permitAll()
 //                .antMatchers("/admin").hasRole("ADMIN")
                 .anyRequest().authenticated()
                 .and()
-                .formLogin().defaultSuccessUrl("/user")
+                .formLogin().defaultSuccessUrl("/index")
                 .and().httpBasic()
                 .and().exceptionHandling().accessDeniedPage("/403");
         http.csrf().disable();
@@ -46,6 +47,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userDetailsService()).passwordEncoder(passwordEncoder());
+    }
+
+    @Bean
+    public SpringSecurityDialect securityDialect() {
+        return new SpringSecurityDialect();
     }
 
 }

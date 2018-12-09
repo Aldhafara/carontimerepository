@@ -12,4 +12,5 @@ public interface UserService {
     User updateUserData(User user, UserEditForm userEditForm);
     User getUserByEmail(String email);
     User getUserById(Long id);
+    User getUserByUsername(String username);
 }
