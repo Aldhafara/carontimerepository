@@ -52,6 +52,6 @@ public class OnTimeApplication implements CommandLineRunner{
 
         Set<Role> userRoles = new HashSet<>();
         userRoles.add(userRole);
-        userRepository.save(new User("user", passwordEncoder.encode("user"), userRoles, "Mariusz","Kowalski","Torun","00521","mar.kowalski@poczta.com",734198397,0 ));
+        //userRepository.save(new User("user", passwordEncoder.encode("user"), userRoles, "Mariusz","Kowalski","Torun","00521","mar.kowalski@poczta.com",734198397,0 ));
     }
 }

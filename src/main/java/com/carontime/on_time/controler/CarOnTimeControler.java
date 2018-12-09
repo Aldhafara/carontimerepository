@@ -32,7 +32,7 @@ public class CarOnTimeControler {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    private final Long TEST_USER_ID = 257L;
+    private final Long TEST_USER_ID = 226L;
 
     private CarService carService;
     private UserService userService;
