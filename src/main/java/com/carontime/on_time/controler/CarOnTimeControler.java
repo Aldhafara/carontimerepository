@@ -27,7 +27,7 @@ import java.security.Principal;
 @RequestMapping
 public class CarOnTimeControler {
 
-    private final int TEST_USER_ID = 257;
+    private final Long TEST_USER_ID = 257L;
 
     private CarService carService;
     private UserService userService;
