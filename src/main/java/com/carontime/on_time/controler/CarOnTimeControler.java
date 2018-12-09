@@ -32,8 +32,6 @@ public class CarOnTimeControler {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    private final Long TEST_USER_ID = 226L;
-
     private CarService carService;
     private UserService userService;
 
@@ -46,14 +44,6 @@ public class CarOnTimeControler {
     @GetMapping(value = {"/", "/index"})
     public String index() {
         return "index";
-    }
-
-    @GetMapping("/user")
-    public String user(Model model) {
-        if(!model.containsAttribute("userForm")){
-            model.addAttribute(new UserForm());
-        }
-        return "user/userdata";
     }
 
     @GetMapping("/admin")
@@ -87,7 +77,7 @@ public class CarOnTimeControler {
     @GetMapping("/user/edit")
     public String edit(Principal principal, Model model) {
         if(!model.containsAttribute("userEditForm")) {
-            model.addAttribute("userEditForm", UserDto.toUserForm(userService.getUserById(TEST_USER_ID)));
+            model.addAttribute("userEditForm", UserDto.toUserForm(userService.getUserByUsername(principal.getName())));
         }
         return "user/edit";
     }
@@ -101,7 +91,7 @@ public class CarOnTimeControler {
         } else {
             Result result = new Result();
             try {
-                User user = userService.getUserById(TEST_USER_ID);
+                User user = userService.getUserByUsername(principal.getName());
                 userService.updateUserData(user, userEditForm);
                 result.addMessage("Pomyślnie edytowano dane użytkownika");
             } catch(RuntimeException e) {
@@ -129,11 +119,5 @@ public class CarOnTimeControler {
     public String registredSuccess(){
         return "user/registration/registredSuccess";
     }
-
-
-
-
-
-
 
 }

@@ -1,17 +1,30 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       lang="en">
 <head>
-
     <meta charset="UTF-8">
     <title>Car On Time</title>
 
-
+    <style>
+        .logreg {
+          align: right
+        }
+    </style>
 </head>
 <body>
 <header>
     <h1 th:align="center">Any Car for You ON TIME!!!!</h1>
+    <div align="right" sec:authorize="isAuthenticated()">
+        <p th:text="${'Zalogowany jako ' + #authentication.getPrincipal().getUsername()}"></p>
+        <a th:href="@{/user/edit}">Moje dane</a>
+        <a th:href="@{/logout}">Wyloguj</a>
+    </div>
+    <div align="right" class="logreg" sec:authorize="!isAuthenticated()">
+        <a th:href="@{/register}">Zarejestruj</a>
+        <a th:href="@{/login}">Zaloguj</a>
+    </div>
 </header>
 <section layout:fragment="content"></section>
 
