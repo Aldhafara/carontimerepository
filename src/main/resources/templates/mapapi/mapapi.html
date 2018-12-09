@@ -22,15 +22,14 @@
 
 <section layout:fragment="content">
     <form id="database">
-        <input id="lng" type="hidden" name="LOCALIZATION" th:value="${lng}" />
-        <input id="lat" type="hidden" name="LOCALIZATION" th:value="${lat}" />
-        <input id="stat" type="hidden" name="STATUS" th:value="${status}" />
+        <input type="hidden" class="carsOnMapAtributes" th:each="car : ${listOfCars}" th:value="${car.getLocalization().x} + '|' + ${car.getLocalization().y} + '|' + ${car.getStatus()}">
     </form>
     <div id="map"></div>
 
     <script>
 
         var map;
+
         function initMap() {
 
             var center = {lat: 53.014541, lng: 18.596197};
@@ -50,27 +49,17 @@
                 }
             };
 
-            var features = [
-                 {
-                     position: new google.maps.LatLng($('#lat').val(), $('#lng').val()),
-                    type: $('#stat').val()
-                }
-                ,
-                {
-                    position: new google.maps.LatLng(53.0152, 18.593),
-                    type: 'INUSE'
-                },
-               {
-                    position: new google.maps.LatLng(53.0154, 18.599),
-                    type: 'UNUSED'
-                }, {
-                    position: new google.maps.LatLng(53.0156, 18.600),
-                    type: 'BROKEN'
-                }, {
-                    position: new google.maps.LatLng(53.016, 18.61),
-                    type: 'INUSE'
-                }
-            ];
+
+            var features = Array();
+            $('.carsOnMapAtributes').each(function () {
+                var atributes = $(this).val().split('|');
+                features.push({
+                    position: new google.maps.LatLng(atributes[0], atributes[1]),
+                    type: atributes[2]
+                });
+                //console.log(atributes)
+            });
+
 
             // Create markers.
             var markers = features.map(function (feature) {
@@ -84,12 +73,10 @@
             // Add a marker clusterer to manage the markers.
             var markerCluster = new MarkerClusterer(map, markers,
                 {imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'});
+
         }
 
-         $(document).ready(function() {
 
-             console.log("TEST: " + $('#lat').val());
-         });
     </script>
     <script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js">
     </script>

@@ -66,6 +66,7 @@ public class CarOnTimeControler {
         System.out.println(cars.get(0).getLocalization().y);
         model.addAttribute("status", cars.get(0).getStatus());
         System.out.println(cars.get(0).getStatus());
+        model.addAttribute("listOfCars",cars);
         return "mapapi/mapapi";
     }
 
