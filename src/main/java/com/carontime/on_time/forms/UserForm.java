@@ -4,6 +4,10 @@ import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.Pattern;
 
+import com.carontime.on_time.login.Role;
+
+import java.util.Set;
+
 public class UserForm {
 
     @Pattern(regexp = "^[A-Za-z\\d]{1,32}$", message="Login musi składać się z liter i być długości od 1 do 32 znaków")
@@ -12,6 +16,7 @@ public class UserForm {
     private String password;
     @Pattern(regexp = "^[A-Za-z\\d]{6,32}$", message = "Hasło musi sie składać z conajmniej 6 znaków")
     private String confirmpassword;
+    private Set<Role> roles;
     @Pattern(regexp = "^[A-Za-zĄąĆćĘęŁłŃńÓóŚśŻŹźż]{1,32}$", message="Imię musi składać się z liter i być długości od 1 do 32 znaków")
     private String name;
     @Pattern(regexp = "^[A-Za-zĄąĆćĘęŁłŃńÓóŚśŻŹźż \\-]{1,64}$", message="Nazwisko musi składać się z liter i być długości od 1 do 64 znaków")
@@ -96,6 +101,14 @@ public class UserForm {
 
     public void setPhoneNumber(int phoneNumber) {
         this.phoneNumber = phoneNumber;
+    }
+
+    public Set<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
     }
 
     public boolean confirmPassword(){

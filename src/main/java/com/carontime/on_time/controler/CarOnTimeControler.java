@@ -2,6 +2,8 @@ package com.carontime.on_time.controler;
 
 import com.carontime.on_time.dto.UserDto;
 import com.carontime.on_time.forms.UserEditForm;
+import com.carontime.on_time.login.Role;
+import com.carontime.on_time.login.RoleRepository;
 import com.carontime.on_time.model.car.Car;
 import com.carontime.on_time.model.car.CarForm;
 import com.carontime.on_time.model.result.Result;
@@ -22,8 +24,10 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
 import java.awt.geom.Point2D;
-import java.util.List;
 import java.security.Principal;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 @Controller
 @RequestMapping
@@ -111,6 +115,9 @@ public class CarOnTimeControler {
         return "user/registration/register";
     }
 
+    @Autowired
+    private RoleRepository roleRepository;
+
     @PostMapping("/register")
     public String saveRegisterUser(@Valid UserForm userForm, BindingResult bindingResult, RedirectAttributes model) {
         if (bindingResult.hasErrors()) {
@@ -132,8 +139,13 @@ public class CarOnTimeControler {
                 model.addFlashAttribute(userForm);
                 return "redirect:/register";
             }
+            Role userRole = roleRepository.save(new Role("USER"));
+            Set<Role> userRoles = new HashSet<>();
+            userRoles.add(userRole);
+
             User user = new User(userForm.getUsername(), passwordEncoder.encode(userForm.getPassword()), userForm.getName(), userForm.getLastname(), userForm.getCity(), userForm.getCarLicenceId(), userForm.getEmailAdress(), userForm.getPhoneNumber());
             model.addFlashAttribute(userForm);
+            user.setRoles(userRoles);
             userService.addUser(user);
             return ("redirect:/registred_success");
         }
@@ -142,5 +154,4 @@ public class CarOnTimeControler {
     public String registredSuccess(){
         return "user/registration/registredSuccess";
     }
-
 }

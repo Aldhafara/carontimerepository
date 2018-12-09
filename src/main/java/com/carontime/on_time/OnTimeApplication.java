@@ -2,18 +2,15 @@ package com.carontime.on_time;
 
 import com.carontime.on_time.login.Role;
 import com.carontime.on_time.login.RoleRepository;
-import com.carontime.on_time.repository.UserRepository;
 import com.carontime.on_time.model.car.Car;
 import com.carontime.on_time.model.car.CarStatus;
-import com.carontime.on_time.model.user.User;
 import com.carontime.on_time.repository.CarRepository;
+import com.carontime.on_time.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.CommandLineRunner;
 import org.springframework.security.crypto.password.PasswordEncoder;
-
 
 import java.awt.geom.Point2D;
 import java.util.HashSet;
@@ -38,20 +35,15 @@ public class OnTimeApplication implements CommandLineRunner{
         SpringApplication.run(OnTimeApplication.class,args);
     }
 
-
-
-
-    //@Override
     public void run(String... strings) throws Exception {
         System.out.println("Hello Spring");
 
         Car car1 = new Car(1, CarStatus.UNUSED,new Point2D.Double(53.0261829,18.6278931));
         carRepository.save(car1);
 
-        Role userRole = roleRepository.save(new Role("USER"));
-
-        Set<Role> userRoles = new HashSet<>();
-        userRoles.add(userRole);
-        //userRepository.save(new User("user", passwordEncoder.encode("user"), userRoles, "Mariusz","Kowalski","Torun","00521","mar.kowalski@poczta.com",734198397,0 ));
+        Role adminRole = roleRepository.save(new Role("ADMIN"));
+        Set<Role> adminRoles = new HashSet<>();
+        adminRoles.add(adminRole);
+//        userRepository.save(new User("adminek", passwordEncoder.encode("adminek"), adminRoles, "Aamin","Administratorski","AdminTown","000000000","administrator@carontime.com",666666666,10000000 ));
     }
 }
