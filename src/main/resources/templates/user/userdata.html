@@ -5,16 +5,16 @@
       lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>userdata</title>user
+    <title>userdata</title>
 </head>
 <body>
-<section layout:fragment="content">
-    <!--<label> Name: </label><p th:text="${user.name}"></p>-->
-    <!--<label> Lastname: </label><p th:text="${user.lastname}"></p>-->
-    <!--<label> City: </label><p th:text="${user.city}"></p>-->
-    <!--<label> Car Licence ID: </label><p th:text="${user.carLicenceId}"></p>-->
-    <!--<label> Email: </label><p th:text="${user.emailAdress}"></p>-->
-    <!--<label> Phone: </label><p th:text="${user.phoneNumber}"></p>-->
+<section layout:fragment="content" th:object="${userForm}">
+    <label> Name: </label><p th:text="*{name}"></p>
+    <label> Lastname: </label><p th:text="*{lastname}"></p>
+    <label> City: </label><p th:text="*{city}"></p>
+    <label> Car Licence ID: </label><p th:text="*{carLicenceId}"></p>
+    <label> Email: </label><p th:text="*{emailAdress}"></p>
+    <label> Phone: </label><p th:text="*{phoneNumber}"></p>
     <div th:align="center">
     <form action="/user/map" method="get">
             <input type="submit" value="USER/MAP"/>

@@ -10,20 +10,22 @@
 <body>
 <section layout:fragment="content">
     <div>
-        <form th:action="@{/user/edit}" method="post" >
-            <label for="name"> Name: </label><input type="text" id="name" name="name">
-            <br>
-            <label for="lastname"> Lastname: </label><input type="text" id="lastname" name="lastname">
-            <br>
-            <label for="city"> City: </label><input type="text" id="city" name="city">
-            <br>
-            <label for="carLicenceId"> Car Licence ID: </label><input type="text" id="carLicenceId" name="carLicenceId">
-            <br>
-            <label for="emailAdress"> Email: </label><input type="text" id="emailAdress" name="emailAdress">
-            <br>
-            <label for="phoneNumber"> Phone: </label><input type="text" id="phoneNumber" name="phoneNumber">
-            <br>
-            <input type="submit" value="Save">
+        <a th:href="@{/user}">Wróć</a>
+        <div th:if="${errors != null}">
+            <p>Wystąpiły byłędy przy wysyłaniu formularza:</p>
+            <p th:each="error : ${errors.getMessages()}" th:text="${error}"></p>
+        </div>
+        <div th:if="${result != null}">
+            <p th:text="${result.getMessage(0)}">Status edycji...</p>
+        </div>
+        <form th:action="@{/user/edit}" th:object="${userEditForm}" method="post">
+            <label for="name-field">Imię: </label><input id="name-field" type="text" name="name" th:value="*{name}"/><br/>
+            <label for="lastname-field">Nazwisko: </label><input id="lastname-field" type="text" name="lastname" th:value="*{lastname}"/><br/>
+            <label for="city-field">Miasto: </label><input id="city-field" type="text" name="city" th:value="*{city}"/><br/>
+            <label for="cardrivelicence-field">Prawo jazdy: </label><input id="cardrivelicence-field" type="text" name="driverLicense" th:value="*{driverLicense}"/><br/>
+            <label for="email-field">Email: </label><input id="email-field" type="text" name="email" th:value="*{email}"/><br/>
+            <label for="phone-field">Telefon: </label><input id="phone-field" type="number" name="telephone" th:value="*{telephone}"/><br/>
+            <input type="Submit" value="Zapisz"/>
         </form>
     </div>
 </section>
