@@ -1,14 +1,29 @@
-package com.carontime.on_time.model.user;
+package com.carontime.on_time.forms;
+
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.Pattern;
 
 public class UserForm {
+
+    @Pattern(regexp = "^[A-Za-z\\d]{1,32}$", message="Login musi składać się z liter i być długości od 1 do 32 znaków")
     private String username;
+    @Pattern(regexp = "^[A-Za-z\\d]{6,32}$", message = "Hasło musi sie składać z conajmniej 6 znaków")
     private String password;
+    @Pattern(regexp = "^[A-Za-z\\d]{6,32}$", message = "Hasło musi sie składać z conajmniej 6 znaków")
     private String confirmpassword;
+    @Pattern(regexp = "^[A-Za-zĄąĆćĘęŁłŃńÓóŚśŻŹźż]{1,32}$", message="Imię musi składać się z liter i być długości od 1 do 32 znaków")
     private String name;
+    @Pattern(regexp = "^[A-Za-zĄąĆćĘęŁłŃńÓóŚśŻŹźż \\-]{1,64}$", message="Nazwisko musi składać się z liter i być długości od 1 do 64 znaków")
     private String lastname;
+    @Pattern(regexp = "^[A-Za-zĄąĆćĘęŁłŃńÓóŚśŻŹźż \\-]{1,64}$", message="Nazwa miasta musi składać się z liter i być długości od 1 do 64 znaków")
     private String city;
+    @Pattern(regexp = "^[\\d]{9}$", message="ID prawa jazdy musi składać się z dziewięciu cyfr")
     private String carLicenceId;
+    @Pattern(regexp = "^[A-Za-z.\\-@]{1,64}$", message="Adres email musi składać się z liter i być długości od 1 do 64 znaków") //TO DO - Email pattern
     private String emailAdress;
+    @Min(value = 100000000, message = "Niepoprawny numer telefonu")
+    @Max(value = 999999999, message = "Niepoprawny numer telefonu")
     private int phoneNumber;
 
     public String getUsername() {
