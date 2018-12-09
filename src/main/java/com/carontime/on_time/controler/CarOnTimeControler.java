@@ -6,7 +6,7 @@ import com.carontime.on_time.model.car.Car;
 import com.carontime.on_time.model.car.CarForm;
 import com.carontime.on_time.model.result.Result;
 import com.carontime.on_time.model.user.User;
-import com.carontime.on_time.model.user.UserForm;
+import com.carontime.on_time.forms.UserForm;
 import com.carontime.on_time.service.UserService;
 import com.carontime.on_time.service.carservice.CarService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -104,20 +104,34 @@ public class CarOnTimeControler {
     }
 
     @GetMapping("/register")
-    public String userRegisterPage(){
+    public String userRegisterPage(Model model){
+        if(!model.containsAttribute("userForm")){
+            model.addAttribute("userForm", new UserForm());
+        }
         return "user/registration/register";
     }
 
     @PostMapping("/register")
-    public String saveRegisterUser(UserForm userForm, RedirectAttributes model) {
-        if(!userForm.confirmPassword()){
+    public String saveRegisterUser(@Valid UserForm userForm, BindingResult bindingResult, RedirectAttributes model) {
+        if (bindingResult.hasErrors()) {
+            Result result = new Result();
+            bindingResult.getAllErrors().forEach(msg -> result.addMessage(msg.getDefaultMessage()));
+            model.addFlashAttribute("errors", result);
+            model.addFlashAttribute(userForm);
             return "redirect:/register";
-        }
-            User user = new User(userForm.getUsername(), passwordEncoder.encode(userForm.getPassword()),userForm.getName(), userForm.getLastname(), userForm.getCity(), userForm.getCarLicenceId(), userForm.getEmailAdress(), userForm.getPhoneNumber());
+        } else {
+            if (!userForm.confirmPassword()) {
+                Result result = new Result("Hasla sa rożne od siebie");
+                model.addFlashAttribute("errors", result);
+                model.addFlashAttribute(userForm);
+                return "redirect:/register";
+            }
+            User user = new User(userForm.getUsername(), passwordEncoder.encode(userForm.getPassword()), userForm.getName(), userForm.getLastname(), userForm.getCity(), userForm.getCarLicenceId(), userForm.getEmailAdress(), userForm.getPhoneNumber());
             model.addFlashAttribute(userForm);
             userService.addUser(user);
             return ("redirect:/registred_success");
-            }
+        }
+    }
     @GetMapping("/registred_success")
     public String registredSuccess(){
         return "user/registration/registredSuccess";
