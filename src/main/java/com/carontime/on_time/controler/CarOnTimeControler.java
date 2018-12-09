@@ -10,6 +10,7 @@ import com.carontime.on_time.model.user.UserForm;
 import com.carontime.on_time.service.UserService;
 import com.carontime.on_time.service.carservice.CarService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -26,6 +27,9 @@ import java.security.Principal;
 @Controller
 @RequestMapping
 public class CarOnTimeControler {
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     private final Long TEST_USER_ID = 257L;
 
@@ -107,7 +111,7 @@ public class CarOnTimeControler {
 
     @PostMapping("/register")
     public String saveRegisterUser(UserForm userForm, RedirectAttributes model) {
-            User user = new User(userForm.getUsername(), userForm.getPassword(),userForm.getName(), userForm.getLastname(), userForm.getCity(), userForm.getCarLicenceId(), userForm.getEmailAdress(), userForm.getPhoneNumber());
+            User user = new User(userForm.getUsername(), passwordEncoder.encode(userForm.getPassword()),userForm.getName(), userForm.getLastname(), userForm.getCity(), userForm.getCarLicenceId(), userForm.getEmailAdress(), userForm.getPhoneNumber());
             model.addFlashAttribute(userForm);
             userService.addUser(user);
             return ("redirect:/registred_success");
