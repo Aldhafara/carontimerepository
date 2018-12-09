@@ -1,9 +1,9 @@
-package com.carontime.on_time.dao;
+package com.carontime.on_time.dto;
 
 import com.carontime.on_time.forms.UserEditForm;
 import com.carontime.on_time.model.user.User;
 
-public class UserDao {
+public class UserDto {
     public static UserEditForm toUserForm(User user) {
         UserEditForm userEditForm = new UserEditForm();
         userEditForm.setName(user.getName());
