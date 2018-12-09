@@ -82,4 +82,8 @@ public class UserForm {
     public void setPhoneNumber(int phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
+
+    public boolean confirmPassword(){
+        return password.equals(confirmpassword);
+    }
 }

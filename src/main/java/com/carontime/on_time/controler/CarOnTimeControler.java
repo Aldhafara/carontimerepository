@@ -110,6 +110,9 @@ public class CarOnTimeControler {
 
     @PostMapping("/register")
     public String saveRegisterUser(UserForm userForm, RedirectAttributes model) {
+        if(!userForm.confirmPassword()){
+            return "redirect:/register";
+        }
             User user = new User(userForm.getUsername(), passwordEncoder.encode(userForm.getPassword()),userForm.getName(), userForm.getLastname(), userForm.getCity(), userForm.getCarLicenceId(), userForm.getEmailAdress(), userForm.getPhoneNumber());
             model.addFlashAttribute(userForm);
             userService.addUser(user);
