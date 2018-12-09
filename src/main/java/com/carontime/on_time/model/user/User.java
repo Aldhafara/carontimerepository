@@ -40,8 +40,7 @@ public class User {
     }
 
     public User(String username, String password, String name, String lastname,
-                String city, String carLicenceId, String emailAdress, int phoneNumber,
-                int wallet) {
+                String city, String carLicenceId, String emailAdress, int phoneNumber) {
         this.username = username;
         this.password = password;
         this.name = name;
@@ -50,7 +49,6 @@ public class User {
         this.carLicenceId = carLicenceId;
         this.emailAdress = emailAdress;
         this.phoneNumber = phoneNumber;
-        this.wallet = wallet;
     }
 
     public User(){}
