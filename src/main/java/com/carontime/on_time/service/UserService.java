@@ -11,5 +11,5 @@ public interface UserService {
     List<User> getAll();
     User updateUserData(User user, UserEditForm userEditForm);
     User getUserByEmail(String email);
-    User getUserById(int id);
+    User getUserById(Long id);
 }

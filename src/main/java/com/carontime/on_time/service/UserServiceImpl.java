@@ -1,12 +1,11 @@
 package com.carontime.on_time.service;
 
-import com.carontime.on_time.repository.UserRepository;
 import com.carontime.on_time.forms.UserEditForm;
 import com.carontime.on_time.model.user.User;
+import com.carontime.on_time.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.transaction.Transactional;
 import java.util.List;
 
 @Service
@@ -50,8 +49,9 @@ public class UserServiceImpl implements UserService {
         return userRepository.findByEmailAdress(email).orElse(null);
     }
 
+
     @Override
-    public User getUserById(int id) {
+    public User getUserById(Long id) {
         return userRepository.findById(id).orElse(null);
     }
 }
