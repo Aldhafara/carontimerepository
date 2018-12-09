@@ -39,7 +39,7 @@ public class OnTimeApplication implements CommandLineRunner{
         System.out.println("Hello Spring");
 
         Car car1 = new Car(1, CarStatus.UNUSED,new Point2D.Double(53.0261829,18.6278931));
-        carRepository.save(car1);
+        //carRepository.save(car1);
 
         Role adminRole = roleRepository.save(new Role("ADMIN"));
         Set<Role> adminRoles = new HashSet<>();
