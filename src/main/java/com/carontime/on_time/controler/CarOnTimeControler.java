@@ -22,6 +22,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
 import java.awt.geom.Point2D;
+import java.util.List;
 import java.security.Principal;
 
 @Controller
@@ -71,7 +72,15 @@ public class CarOnTimeControler {
     }
 
     @GetMapping("/user/map")
-    public String map() {
+    public String map(Model model) {
+        List<Car> cars = carService.getAll();
+        model.addAttribute("lat", cars.get(0).getLocalization().x);
+        System.out.println(cars.get(0).getLocalization().x);
+        model.addAttribute("lng", cars.get(0).getLocalization().y);
+        System.out.println(cars.get(0).getLocalization().y);
+        model.addAttribute("status", cars.get(0).getStatus());
+        System.out.println(cars.get(0).getStatus());
+        model.addAttribute("listOfCars",cars);
         return "mapapi/mapapi";
     }
 

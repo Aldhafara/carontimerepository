@@ -11,14 +11,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.security.crypto.password.PasswordEncoder;
+
 
 import java.awt.geom.Point2D;
 import java.util.HashSet;
 import java.util.Set;
 
 @SpringBootApplication
-public class OnTimeApplication implements CommandLineRunner {
+public class OnTimeApplication implements CommandLineRunner{
 
     @Autowired
     private CarRepository carRepository;
@@ -36,9 +38,11 @@ public class OnTimeApplication implements CommandLineRunner {
         SpringApplication.run(OnTimeApplication.class,args);
     }
 
-    @Override
-    public void run(String... strings) throws Exception {
 
+
+
+    //@Override
+    public void run(String... strings) throws Exception {
         System.out.println("Hello Spring");
 
         Car car1 = new Car(1, CarStatus.UNUSED,new Point2D.Double(53.0261829,18.6278931));

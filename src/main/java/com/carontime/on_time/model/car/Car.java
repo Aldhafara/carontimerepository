@@ -7,6 +7,7 @@ import javax.persistence.Id;
 import java.awt.geom.Point2D;
 import java.util.Objects;
 
+
 @Entity
 public class Car {
     @Id

@@ -16,31 +16,69 @@
             width: 100%;
         }
     </style>
+    <script th:src="@{jQuery.js}"></script>
 </head>
 <body>
+
 <section layout:fragment="content">
+    <form id="database">
+        <input type="hidden" class="carsOnMapAtributes" th:each="car : ${listOfCars}" th:value="${car.getLocalization().x} + '|' + ${car.getLocalization().y} + '|' + ${car.getStatus()}">
+    </form>
     <div id="map"></div>
+
     <script>
+
         var map;
+
         function initMap() {
 
-            // locations to use with markers
-            // TODO: implement variables for lat and lng
-            var torun = {lat: 53.014421, lng: 18.598591};
-            var torun2 = {lat: 53.05, lng: 18.65};
-            // The map, centered at Toruń 53.014421, 18.598591
+            var center = {lat: 53.014541, lng: 18.596197};
+            // The map, centered at Toruń 53.014421, 18.598591 53.014541, 18.596197
             var map = new google.maps.Map(
-                document.getElementById('map'), {zoom: 12, center: torun});
-            // The marker, positioned at Toruń
-            var marker = new google.maps.Marker({position: torun, map: map});
-            // The marker, with beachflag.png
-            var image = 'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png';
-            var beachMarker = new google.maps.Marker({
-                position: torun2,
-                map: map,
-                icon: image
+                document.getElementById('map'), {zoom: 12, center: center});
+
+            var icons = {
+            'UNUSED': {
+                    icon: "unuse.png"
+                },
+            'INUSE': {
+                    icon: "in_use.png"
+                },
+            'BROKEN': {
+                    icon: "broken.png"
+                }
+            };
+
+
+            var features = Array();
+            $('.carsOnMapAtributes').each(function () {
+                var atributes = $(this).val().split('|');
+                features.push({
+                    position: new google.maps.LatLng(atributes[0], atributes[1]),
+                    type: atributes[2]
+                });
+                //console.log(atributes)
             });
+
+
+            // Create markers.
+            var markers = features.map(function (feature) {
+                return new google.maps.Marker({
+                    position: feature.position,
+                    icon: icons[feature.type].icon,
+                    map: map
+                });
+            });
+
+            // Add a marker clusterer to manage the markers.
+            var markerCluster = new MarkerClusterer(map, markers,
+                {imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'});
+
         }
+
+
+    </script>
+    <script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js">
     </script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAuI8FWXrvR72kDdXgxznYMl5zvoli8cy4&callback=initMap"
             async defer></script>
