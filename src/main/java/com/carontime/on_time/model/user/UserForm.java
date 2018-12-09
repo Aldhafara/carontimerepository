@@ -1,9 +1,14 @@
 package com.carontime.on_time.model.user;
 
+import com.carontime.on_time.login.Role;
+
+import java.util.Set;
+
 public class UserForm {
     private String username;
     private String password;
     private String confirmpassword;
+    private Set<Role> roles;
     private String name;
     private String lastname;
     private String city;
@@ -81,5 +86,13 @@ public class UserForm {
 
     public void setPhoneNumber(int phoneNumber) {
         this.phoneNumber = phoneNumber;
+    }
+
+    public Set<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
     }
 }

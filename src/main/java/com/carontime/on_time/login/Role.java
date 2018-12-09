@@ -1,8 +1,10 @@
 package com.carontime.on_time.login;
 
 import com.carontime.on_time.model.user.User;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -14,6 +16,8 @@ public class Role {
     private String name;
     @ManyToMany(mappedBy = "roles")
     private Set<User> users;
+
+
 
     public Role(){
 
