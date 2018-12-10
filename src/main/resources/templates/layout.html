@@ -12,15 +12,128 @@
           align: right
         }
     </style>
+    <style>
+        /* ------------------------CZĘŚĆ-GÓRNA-MENU------------------------ */
+
+        /* wygląd głównego elementu - ol */
+        ol {
+            list-style-type:none;
+            padding:0;
+            margin:0;
+            background-color:#FFF;
+            font-size:18px;
+            height:2em;
+            line-height:2em;
+            text-align:center;
+            vertical-align: text-top;
+            position:absolute;
+            z-index: 9999;
+            right: 10px;
+            top: 2px;
+        }
+
+        /* wygląd wszystkich elementów - a - znajdujących się w elemencie - ol */
+        ol a {
+            display:block;
+            text-decoration:none;
+            color:#000;
+            padding:0 5px;
+        }
+
+        /* wygląd elementów - li - wszystkich dzieci elementu - ol */
+        ol > li {
+            float:left;
+            width:150px;
+            margin-left:1px;
+            background-color:#FDD700;
+            height:2em;
+        }
+
+        /* wygląd elementu - li - pierwszego dziecka elementu - ol */
+        ol > li:first-child {
+            margin-left:0;
+        }
+
+        /* wygląd elementów - li - wszystkich dzieci elementu - ol - po najechaniu kursorem myszki na element - li */
+        ol > li:hover {
+            background-color:#EEE;
+        }
+
+        /* wygląd elementu - a - dziecka elementu - li - będącego dzieckiem elementu - ol - po najechaniu kursorem myszki na element - li */
+        ol > li:hover > a {
+            color:#09C;
+        }
+
+        /* wygląd elementu - ul - dziecka elementu - li - będącego dzieckiem elementu - ol - po najechaniu kursorem myszki na element - li */
+        ol > li:hover > ul {
+            display:block;
+        }
+
+        /* ------------------------CZĘŚĆ-ROZWIJANA-MENU------------------------ */
+
+        /* wygląd głównych rozwijanych elementów - ul */
+        ol > li > ul {
+            display:none;
+            list-style-type:none;
+            padding:0;
+            margin:0;
+        }
+
+        /* wygląd elementu - li - w części rozwijanej */
+        ol > li > ul > li {
+            position:relative;
+            background-color:#EEE;
+        }
+
+        /* wygląd elementu - a - w części rozwijanej */
+        ol > li > ul > li > a {
+            border-top:1px solid #FFF;
+        }
+
+        /* wygląd elementu - li - w części rozwijanej, po najechaniu kursorem myszki na dany element - li */
+        ol > li > ul > li:hover {
+            background-color:#DDD;
+        }
+
+        /* wygląd elementu - a - w części rozwijanej, po najechaniu kursorem myszki na element - li */
+        ol > li > ul > li:hover > a {
+            color:#09C;
+        }
+    </style>
 </head>
 <body>
 <header>
-    <h1 th:align="center">Any Car for You ON TIME!!!!</h1>
-    <div align="right" sec:authorize="isAuthenticated()">
-        <p th:text="${'Zalogowany jako ' + #authentication.getPrincipal().getUsername()}"></p>
-        <a th:href="@{/user/edit}">Moje dane</a>
-        <a th:href="@{/logout}">Wyloguj</a>
+    <div type="hidden" align="right" sec:authorize="isAuthenticated()">
+        <ol>
+            <li>
+                <a class="auth-dropdown-menu-item" th:href="@{/user/edit}">
+                    <strong th:text="${ #authentication.getPrincipal().getUsername()}"> </strong>
+                    <br>
+                    <span class="auth-dropdown-item-secondary">Edytuj dane</span>
+                </a>
+                <ul>
+
+
+                    <!--<li>-->
+                    <!--<a class="auth-dropdown-menu-item" href="/settings">Settings</a>-->
+                    <!--</li>-->
+
+                    <li>
+                        <a class="auth-dropdown-menu-item" href="/">Mapa</a>
+                    </li>
+
+                    <li>
+                        <form method="post" data-require="components/logout-form" action="/logout" data-no-partial-refresh="">
+                            <input name="csrfmiddlewaretoken" value="YoqF0l47sBIKjpW5h62t0TPb5pHCRm2j" type="hidden">
+                            <a th:href="@{/logout}">Wyloguj</a>
+                        </form>
+                    </li>
+                </ul>
+            </li>
+
+        </ol>
     </div>
+    <h1 th:align="center">Any Car for You ON TIME!!!!</h1>
     <div align="right" class="logreg" sec:authorize="!isAuthenticated()">
         <a th:href="@{/register}">Zarejestruj</a>
         <a th:href="@{/login}">Zaloguj</a>
