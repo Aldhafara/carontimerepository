@@ -4,6 +4,7 @@ import com.carontime.on_time.login.Role;
 import com.carontime.on_time.login.RoleRepository;
 import com.carontime.on_time.model.car.Car;
 import com.carontime.on_time.model.car.CarStatus;
+import com.carontime.on_time.model.user.User;
 import com.carontime.on_time.repository.CarRepository;
 import com.carontime.on_time.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,6 +45,8 @@ public class OnTimeApplication implements CommandLineRunner{
         Role adminRole = roleRepository.save(new Role("ADMIN"));
         Set<Role> adminRoles = new HashSet<>();
         adminRoles.add(adminRole);
-//        userRepository.save(new User("adminek", passwordEncoder.encode("adminek"), adminRoles, "Aamin","Administratorski","AdminTown","000000000","administrator@carontime.com",666666666,10000000 ));
+
+        //System.out.println("Czy istnieje Admin??: " + !userRepository.findUserByRole(adminRoles).isEmpty());
+        //userRepository.save(new User("adminek", passwordEncoder.encode("adminek"), adminRoles, "Aamin","Administratorski","AdminTown","000000000","administrator@carontime.com",666666666,10000000 ));
     }
 }
