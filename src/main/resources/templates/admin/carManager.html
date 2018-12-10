@@ -32,6 +32,21 @@
             cursor:pointer;
         }
     </style>
+    <style>
+        table, td, th {
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        th, td {
+            padding: 15px;
+        }
+    </style>
 </head>
 <body>
 <section layout:fragment="content">
@@ -46,6 +61,7 @@
     <div th:if="${results != null}">
         <p th:each="result : ${results.getMessages()}" th:text="${result}"></p>
     </div>
+    <br>
 
     <form th:action="@{/admin/cars/add}" method="post" th:object="${carForm}">
         <label for="status"> Status: </label>
@@ -59,6 +75,7 @@
         <input id="longitude" name="longitude" placeholder="Długość geograficzna" th:value="*{longitude}">
         <input type="submit" value="Dodaj">
     </form>
+    <br>
 
     <table>
         <thead>
@@ -77,12 +94,13 @@
                 <td th:text="*{car.getX()}"></td>
                 <td th:text="*{car.getY()}"></td>
                 <td>
-                    <a class="link" th:onclick="'popupCenter(\'/admin/cars/edit/' + ${car.getId()} +'\', \'Edytuj\', 500, 250)'">Edytuj</a>
-                    <a class="link" th:onclick="'popupCenter(\'/admin/cars/delete/' + ${car.getId()} +'\', \'Usuń\', 500, 200)'">Usuń</a>
+                    <button><a  class="" th:onclick="'popupCenter(\'/admin/cars/edit/' + ${car.getId()} +'\', \'Edytuj\', 500, 250)'">Edytuj</a></button>
+                    <button><a class="link" th:onclick="'popupCenter(\'/admin/cars/delete/' + ${car.getId()} +'\', \'Usuń\', 500, 200)'">Usuń</a></button>
                 </td>
             </tr>
         </tbody>
     </table>
+    <br>
 
 </div>
 </section>
