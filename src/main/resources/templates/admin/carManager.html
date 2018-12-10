@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout"
+      lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>admindata</title>
+    <script>
+        //https://stackoverflow.com/questions/4068373/center-a-popup-window-on-screen
+        function popupCenter(url, title, w, h) {
+            // Fixes dual-screen position                         Most browsers      Firefox
+            var dualScreenLeft = window.screenLeft != undefined ? window.screenLeft : window.screenX;
+            var dualScreenTop = window.screenTop != undefined ? window.screenTop : window.screenY;
+
+            var width = window.innerWidth ? window.innerWidth : document.documentElement.clientWidth ? document.documentElement.clientWidth : screen.width;
+            var height = window.innerHeight ? window.innerHeight : document.documentElement.clientHeight ? document.documentElement.clientHeight : screen.height;
+
+            var left = ((width / 2) - (w / 2)) + dualScreenLeft;
+            var top = ((height / 2) - (h / 2)) + dualScreenTop;
+            var newWindow = window.open(url, title, 'scrollbars=yes, width=' + w + ', height=' + h + ', top=' + top + ', left=' + left);
+
+            // Puts focus on the newWindow
+            if (window.focus) {
+                newWindow.focus();
+            }
+            return false;
+        }
+    </script>
+    <style>
+        .link:hover {
+            cursor:pointer;
+        }
+    </style>
+</head>
+<body>
+<section layout:fragment="content">
+<div>
+    <a th:href="@{/admin}">Wróć</a>
+
+    <div th:if="${errors != null}">
+        <p>Wystąpiły błędy przy wysyłaniu formularza:</p>
+        <p th:each="error : ${errors.getMessages()}" th:text="${error}"></p>
+    </div>
+
+    <div th:if="${results != null}">
+        <p th:each="result : ${results.getMessages()}" th:text="${result}"></p>
+    </div>
+
+    <form th:action="@{/admin/cars/add}" method="post" th:object="${carForm}">
+        <label for="status"> Status: </label>
+        <select id="status" th:name="status" th:field="*{status}">
+            <option th:value="INUSE" th:text="${T(com.carontime.on_time.model.car.CarStatus).INUSE.getFullName()}"></option>
+            <option th:value="UNUSED" th:text="${T(com.carontime.on_time.model.car.CarStatus).UNUSED.getFullName()}"></option>
+            <option th:value="BROKEN" th:text="${T(com.carontime.on_time.model.car.CarStatus).BROKEN.getFullName()}"></option>
+        </select>
+        <label> Lokalizacja: </label>
+        <input id="latitude" name="latitude" placeholder="Szerokość geograficzna" th:value="*{latitude}">
+        <input id="longitude" name="longitude" placeholder="Długość geograficzna" th:value="*{longitude}">
+        <input type="submit" value="Dodaj">
+    </form>
+
+    <table>
+        <thead>
+            <tr>
+                <td>ID pojazdu</td>
+                <td>Status pojazdu</td>
+                <td>Szerokość geograficzna</td>
+                <td>Długość geograficzna</td>
+                <td></td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="car : ${carList}">
+                <td th:text="*{car.getId()}"></td>
+                <td th:text="*{car.getStatus().getFullName()}"></td>
+                <td th:text="*{car.getX()}"></td>
+                <td th:text="*{car.getY()}"></td>
+                <td>
+                    <a class="link" th:onclick="'popupCenter(\'/admin/cars/edit/' + ${car.getId()} +'\', \'Edytuj\', 500, 250)'">Edytuj</a>
+                    <a class="link" th:onclick="'popupCenter(\'/admin/cars/delete/' + ${car.getId()} +'\', \'Usuń\', 500, 200)'">Usuń</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+</div>
+</section>
+</body>
+</html>

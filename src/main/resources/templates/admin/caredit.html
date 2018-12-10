@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      lang="en">
+<script>
+    function closeWindow() {
+    console.log("TEST");
+        close();
+    }
+</script>
+<body>
+    <div th:if="${errors != null}">
+        <p>Wystąpiły błędy przy wysyłaniu formularza:</p>
+        <p th:each="error : ${errors.getMessages()}" th:text="${error}"></p>
+    </div>
+
+    <div th:if="${results != null}">
+        <p th:each="result : ${results.getMessages()}" th:text="${result}"></p>
+    </div>
+
+    <div>
+        <form method="post" action="#" th:object="${carForm}">
+            <label for="status">ID pojazdu:</label><input type="text" disabled="disabled" th:value="${carid}"><br/>
+            <label for="status">Status:</label>
+            <select id="status" th:name="status" th:field="*{status}">
+                <option th:value="INUSE" th:text="${T(com.carontime.on_time.model.car.CarStatus).INUSE.getFullName()}"></option>
+                <option th:value="UNUSED" th:text="${T(com.carontime.on_time.model.car.CarStatus).UNUSED.getFullName()}"></option>
+                <option th:value="BROKEN" th:text="${T(com.carontime.on_time.model.car.CarStatus).BROKEN.getFullName()}"></option>
+            </select><br/>
+            <label for="lan">Szerokość geograficzna:</label><input id="lan" th:name="latitude" type="text" th:value="*{getLatitude()}"/><br/>
+            <label for="lon">Długość geograficzna:</label><input id="lon" th:name="longitude" type="text" th:value="*{getLongitude()}"/><br/>
+            <input type="button" value="Anuluj" onclick="closeWindow()">
+            <input type="submit" value="Zapisz"/>
+        </form>
+    </div>
+</body>
+</html>

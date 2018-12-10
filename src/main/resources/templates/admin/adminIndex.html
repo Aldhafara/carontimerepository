@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout"
+      lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>admindata</title>
+</head>
+<body>
+<section layout:fragment="content">
+<div>
+    <div>
+        <a th:href="@{/index}">Strona główna</a>
+        <a th:href="@{/admin/cars}">Pojazdy</a>
+    </div>
+</div>
+</section>
+</body>
+</html>
