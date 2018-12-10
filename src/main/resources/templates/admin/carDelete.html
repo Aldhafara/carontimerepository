@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      lang="en">
+<script>
+    function closeWindow() {
+        close();
+    }
+</script>
+<body>
+    <div th:if="${results != null}">
+        <p th:text="${results}"></p>
+        <form method="get" th:action="@{/admin/cars}">
+            <input type="button" value="Zamknij okno" onclick="closeWindow()">
+        </form>
+    </div>
+
+    <div th:if="${results == null && carid != null}">
+        <p th:text="${'Czy na pewno chcesz usunąć pojazd o ID: ' + carid}"></p>
+        <form method="post" th:action="${'/admin/cars/delete/' + carid}">
+            <input type="submit" value="Tak">
+            <input type="button" value="Nie" onclick="closeWindow()">
+        </form>
+    </div>
+</body>
+</html>

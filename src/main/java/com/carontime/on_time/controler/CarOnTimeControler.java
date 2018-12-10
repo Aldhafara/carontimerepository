@@ -4,8 +4,6 @@ import com.carontime.on_time.dto.UserDto;
 import com.carontime.on_time.forms.UserEditForm;
 import com.carontime.on_time.login.Role;
 import com.carontime.on_time.login.RoleRepository;
-import com.carontime.on_time.model.car.Car;
-import com.carontime.on_time.model.car.CarForm;
 import com.carontime.on_time.model.result.Result;
 import com.carontime.on_time.model.user.User;
 import com.carontime.on_time.forms.UserForm;
@@ -23,10 +21,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
-import java.awt.geom.Point2D;
 import java.security.Principal;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 @Controller
@@ -50,18 +46,6 @@ public class CarOnTimeControler {
     @GetMapping(value = {"/", "/index"})
     public String index() {
         return "index";
-    }
-
-    @GetMapping("/admin")
-    public String admin() {
-        return "admin/admindata";
-    }
-
-    @PostMapping("/admin")
-    public String add(CarForm carForm) {
-        Car car = new Car(carForm.getStatus(), new Point2D.Double(carForm.getLatitude(), carForm.getLongitude()));
-        carService.addCar(car);
-        return "redirect:/admin";
     }
 
     @GetMapping("/user/edit")

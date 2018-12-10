@@ -1,5 +1,6 @@
 package com.carontime.on_time.service.carservice;
 
+import com.carontime.on_time.forms.CarForm;
 import com.carontime.on_time.model.car.Car;
 
 import java.util.List;
@@ -10,4 +11,5 @@ public interface CarService {
     Car getCar(Integer id);
     List<Car> getAll();
     boolean isExists(Integer id);
+    void updateCar(Integer car, CarForm carForm);
 }

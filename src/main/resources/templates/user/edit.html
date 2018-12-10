@@ -12,7 +12,7 @@
     <div>
         <a th:href="@{/index}">Wróć</a>
         <div th:if="${errors != null}">
-            <p>Wystąpiły byłędy przy wysyłaniu formularza:</p>
+            <p>Wystąpiły błędy przy wysyłaniu formularza:</p>
             <p th:each="error : ${errors.getMessages()}" th:text="${error}"></p>
         </div>
         <div th:if="${result != null}">

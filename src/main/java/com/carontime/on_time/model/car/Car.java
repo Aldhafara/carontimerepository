@@ -50,6 +50,14 @@ public class Car {
         this.localization = localization;
     }
 
+    public double getX() {
+        return localization.getX();
+    }
+
+    public double getY() {
+        return localization.getY();
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

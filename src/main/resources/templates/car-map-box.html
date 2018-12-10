@@ -9,7 +9,7 @@
         var map;
 
         function initMap() {
-
+            var iconSrc = 'http://localhost:8083/icons';
             var center = {lat: 53.014541, lng: 18.596197};
             // The map, centered at Toruń 53.014421, 18.598591 53.014541, 18.596197
             var map = new google.maps.Map(
@@ -17,16 +17,15 @@
 
             var icons = {
             'UNUSED': {
-                    icon: "icons/unuse.png"
+                    icon: iconSrc + "/unuse.png"
                 },
             'INUSE': {
-                    icon: "icons/in_use.png"
+                    icon: iconSrc + "/in_use.png"
                 },
             'BROKEN': {
-                    icon: "icons/broken.png"
+                    icon: iconSrc + "/broken.png"
                 }
             };
-
 
             var features = Array();
             $('.carsOnMapAtributes').each(function () {
@@ -35,7 +34,6 @@
                     position: new google.maps.LatLng(atributes[0], atributes[1]),
                     type: atributes[2]
                 });
-                console.log(atributes)
             });
 
 
